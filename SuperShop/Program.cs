@@ -15,13 +15,16 @@ namespace SuperShop
     {
         public static void Main(string[] args)
         {
+            //create host
             var host = CreateHostBuilder(args).Build();
+            //run method for seeding db
             RunSeeding(host);
             host.Run();
         }
 
         private static void RunSeeding(IHost host)
         {
+            //create service
             var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
             using (var scope = scopeFactory.CreateScope())
             {
