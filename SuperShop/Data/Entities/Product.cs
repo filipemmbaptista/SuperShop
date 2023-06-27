@@ -35,7 +35,7 @@ namespace SuperShop.Data.Entities
         public User User { get; set; }
 
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://supershopfb.azurewebsites.net/images/noimage.png"
+            ? $"https://supershopfb.blob.core.windows.net/default/noimage.png"
             : $"https://supershopfb.blob.core.windows.net/products/{ImageId}";
         
         //{
