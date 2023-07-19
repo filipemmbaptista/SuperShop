@@ -88,8 +88,7 @@ namespace SuperShop.Controllers
                 //For BlobHelper -> change converterHelper to receive a Guid instead of String for the 2nd parameter
                 var product = _converterHelper.ToProduct(model, imageId, true);
 
-                //TODO: Change for the user that is logged in
-                product.User = await _userHelper.GetUserByEmailAsync("rafaasfs@gmail.com");
+                product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 await _productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
@@ -144,8 +143,7 @@ namespace SuperShop.Controllers
                     //For BlobHelper -> change converterHelper to receive a Guid instead of String for the 2nd parameter
                     var product = _converterHelper.ToProduct(model, imageId, false);
 
-                    //TODO: Change for the user that is logged in
-                    product.User = await _userHelper.GetUserByEmailAsync("rafaasfs@gmail.com");
+                    product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                     await _productRepository.UpdateAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)
