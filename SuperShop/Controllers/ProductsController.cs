@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SuperShop.Data;
@@ -11,6 +12,7 @@ using SuperShop.Models;
 
 namespace SuperShop.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -18,6 +20,7 @@ namespace SuperShop.Controllers
         //Substituido pelo BlobHelper
         //private readonly IImageHelper _imageHelper;
         private readonly IConverterHelper _converterHelper;
+        //Substitui o ImageHelper
         private readonly IBlobHelper _blobHelper;
 
         public ProductsController(IProductRepository productRepository, IUserHelper userHelper, IConverterHelper converterHelper, IBlobHelper blobHelper)
@@ -67,16 +70,16 @@ namespace SuperShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                /* Used for ImageHelper
-                * var path = string.Empty; */
+                // Used for ImageHelper
+                //var path = string.Empty; 
 
                 // Used for BlobHelper
                 Guid imageId = Guid.NewGuid();
 
                 if (model.ImageFile != null && model.ImageFile.Length > 0)
                 {
-                    /* Used for ImageHelper
-                    * path = await _imageHelper.UploadImageAsync(model.ImageFile, "products"); */
+                    // Used for ImageHelper
+                    //path = await _imageHelper.UploadImageAsync(model.ImageFile, "products");
 
                     // Used for BlobHelper
                     imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "products");

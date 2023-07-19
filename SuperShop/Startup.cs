@@ -76,6 +76,7 @@ namespace SuperShop
 
             app.UseRouting();
 
+            //Authentication is necessary for logins
             app.UseAuthentication();
             app.UseAuthorization();
 
