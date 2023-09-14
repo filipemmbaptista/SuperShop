@@ -187,8 +187,23 @@ namespace SuperShop.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
-            await _productRepository.DeleteAsync(product);
-            return RedirectToAction(nameof(Index));
+
+            try
+            {
+                await _productRepository.DeleteAsync(product);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("DELETE"))
+                {
+                    ViewBag.ErrorTitle = $"{product.Name} should be in use!";
+                    ViewBag.ErrorMessage = $"{product.Name} cannot be deleted while they are under orders.</br></br>" +
+                        $"Try delete the order first, and then delete the product."; 
+                }
+                return View("Error");
+            }
+
         }
 
         public IActionResult ProductNotFound()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SuperShop.Data.Entities;
+using System.Linq;
 
 namespace SuperShop.Data
 {
@@ -17,5 +18,21 @@ namespace SuperShop.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
+
+        //Serve para habilitar a regra de apagar em cascata
+        /*
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var cascadeFks = modelBuilder.Model.GetEntityTypes().SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            foreach (var fk in cascadeFks)
+            {
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+            base.OnModelCreating(modelBuilder);
+        }
+        */
     }
 }
