@@ -32,7 +32,7 @@ namespace SuperShop.Data.Entities
         public double Quantity => Items == null ? 0 : Items.Sum(i => i.Quantity);
 
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public decimal Value => (decimal)(Items == null ? 0 : Items.Sum(i => i.Quantity));
+        public decimal Value => Items == null ? 0 : Items.Sum(i => i.Value);
 
         [Display(Name = "Order Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}", ApplyFormatInEditMode = false)]
