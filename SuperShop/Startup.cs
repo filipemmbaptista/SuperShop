@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vereyon.Web;
 
 namespace SuperShop
 {
@@ -57,6 +58,8 @@ namespace SuperShop
             {
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddFlashMessage();
 
             //creates 1 time only
             services.AddTransient<SeedDB>();
